@@ -7,8 +7,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: autopep8
         uses: peter-evans/autopep8@v2
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
           args: --recursive --in-place --aggressive --aggressive .
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
@@ -19,3 +17,5 @@ jobs:
           body: This is an auto-generated PR with fixes by autopep8.
           labels: autopep8, automated pr
           branch: autopep8-patches
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
