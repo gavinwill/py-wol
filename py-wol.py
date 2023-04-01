@@ -3,7 +3,7 @@ import sys
 import struct
 import socket
 
-parser = argparse.ArgumentParser(description='Very Very Simple Python Wake On Lan')
+parser = argparse.ArgumentParser(description='Very Very Very Simple Python Wake On Lan')
 parser.add_argument('-m','--mac', help='Mac Address to Wake Up', required=True)
 args = parser.parse_args()
 
