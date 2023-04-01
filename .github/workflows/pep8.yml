@@ -1,21 +1,21 @@
-name: Format python code
-on: push
+# This action works with pull requests and pushes
+name: Continuous Integration
+
+on:
+  pull_request:
+  push:
+    branches:
+    - master
+
 jobs:
-  autopep8:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: autopep8
-        uses: peter-evans/autopep8@v2
-          args: --recursive --in-place --aggressive --aggressive .
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: autopep8 action fixes
-          title: Fixes by autopep8 action
-          body: This is an auto-generated PR with fixes by autopep8.
-          labels: autopep8, automated pr
-          branch: autopep8-patches
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+    - uses: actions/checkout@v2
+      with:
+        # Make sure the actual branch is checked out when running on pull requests
+        ref: ${{ github.head_ref }}
+    - uses: creyD/action_autopep8@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
